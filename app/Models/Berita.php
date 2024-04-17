@@ -11,4 +11,11 @@ class Berita extends Model
 
     protected $table = "Berita";
     protected $fillable = ["judul", "description", "img"];
+
+    public function getImgAttribute($value) {
+        if($value == null) {
+            return null;
+        }
+        return "/storage/berita/" . $value;
+    }
 }

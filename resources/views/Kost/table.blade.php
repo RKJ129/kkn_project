@@ -6,7 +6,7 @@
         <td class="description">{{ $item->description }}</td>
         <td class="img">
             <img class="img-fluid" style="width: 50px"
-                src="{{ Storage::url($item->img != null ? 'kost/' . $item->img : 'kost/default.jpeg') }}">
+                src="{{ $item->img != null ? $item->img : Storage::url('kost/default.jpeg') }}">
         </td>
         <td>
             <div class="d-flex" style="gap: 10px">

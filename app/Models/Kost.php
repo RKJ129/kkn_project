@@ -11,4 +11,11 @@ class Kost extends Model
 
     protected $table = "kost";
     protected $fillable = ["name", "harga", "alamat", "description", "kontak", "img"];
+
+    public function getImgAttribute($value) {
+        if($value == null) {
+            return null;
+        }
+        return "/storage/kost/" . $value;
+    }
 }

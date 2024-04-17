@@ -1,7 +1,7 @@
 @foreach ($data as $item)
     <tr id="{{ $item->id }}">
         <td class="thumbnail">
-            <img class="img-fluid" style="width: 50px" src="{{ Storage::url('berita/' . $item->img) }}">
+            <img class="img-fluid" style="width: 50px" src="{{ $item->img }}">
         </td>
         <td class="judul">{{ $item->judul }}</td>
         <td class="deskripsi">{{ $item->description }}</td>

@@ -39,7 +39,7 @@
                     <div class="card">
                         <div class="card-content">
                             <div class="card-body">
-                                <img src="{{ Storage::url($profile->img != null ? "profile/" . $profile->img : "profile/profile_default.jpeg") }}" class="rounded w-100" id="foto-rt">
+                                <img src="{{ $profile->img != null ? $profile->img : Storage::url('profile/profile_default.jpeg') }}" class="rounded w-100" id="foto-rt">
                                 <div class="text-center">
                                     <p class="mt-2 mb-0 name-rt">{{ $profile->name }}</p>
                                     <p class="mb-2 position-rt">Ketua RT</p>
