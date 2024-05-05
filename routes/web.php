@@ -5,6 +5,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\KostController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -47,4 +48,10 @@ Route::middleware('auth')->prefix('/berita')->name('berita.')->group(function() 
     Route::post('/store', [BeritaController::class, "store"])->name("store");
     Route::post('/update', [BeritaController::class, "update"])->name("update");
     Route::delete('/delete/{id}', [BeritaController::class, "delete"])->name("delete");
+});
+
+Route::middleware('auth')->prefix('/users')->name('users.')->group(function() {
+    Route::get('/', [UsersController::class, 'index'])->name('index');
+    Route::post('/store', [UsersController::class, 'store'])->name('store');
+    Route::post('/update', [UsersController::class, 'update'])->name('update');
 });

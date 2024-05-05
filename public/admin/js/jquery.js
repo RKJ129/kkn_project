@@ -339,6 +339,54 @@ $("body").on("click", ".btn-delete-berita", function() {
       });
 });
 
+// create user
+$("body").on("submit", ".form-create-user", function(e) {
+    e.preventDefault();
+
+    const data = new FormData(this);
+
+    $.ajax({
+        type: "POST",
+        url: "/users/store",
+        data: data,
+        processData: false,
+        contentType: false,
+        cache: false,
+        success: function (response) {
+            console.info(response);
+            $("#btn-close-create-user").click();
+            $(".table-body-users").html(response);
+        }, error: function(error) {
+            console.error(error);
+        }
+    });
+});
+
+$("body").on("submit", ".form-update-user", function(e) {
+    e.preventDefault();
+    const data = new FormData(this);
+
+    $.ajaxSetup({
+        headers:{
+            'X_CSRF_TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+     });
+
+     $.ajax({
+        type: "POST",
+        url: "/users/update",
+        data: data,
+        processData: false,
+        contentType: false,
+        cache: false,
+        success: function (response) {
+            console.info(response);
+        }, error: function(error) {
+            console.error(error);
+        }
+     });
+});
+
 // login
 $("body").on("submit", "#form-login", function(e) {
     e.preventDefault();
@@ -406,6 +454,8 @@ $("body").on("click", "a#logout", function(e) {
         }
       });
 });
+
+
 
 function showAlert(selector, message) {
     $(selector).addClass("is-invalid").next().remove();
