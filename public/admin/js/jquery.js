@@ -380,7 +380,19 @@ $("body").on("submit", ".form-update-user", function(e) {
         contentType: false,
         cache: false,
         success: function (response) {
-            console.info(response);
+            const data = response.data;
+
+            $(`tr#${data.id} td img`).attr("src", `/storage/users/${data.img}`);
+            $(`tr#${data.id} td.name`).text(data.name);
+            $(`tr#${data.id} td.email`).text(data.email);
+
+            $("button#close-update-user").click();
+            $(".form-update-user")[0].reset();
+
+            Swal.fire({
+                title: response.message,
+                icon: "success"
+            });
         }, error: function(error) {
             console.error(error);
         }

@@ -31,7 +31,7 @@
                 <table class='table table-striped table-kost' id="table1">
                     <thead>
                         <tr>
-                            <th>Foto</th>
+                            <th>Foto1</th>
                             <th>Nama</th>
                             <th>Email</th>
                             <th>Aksi</th>
