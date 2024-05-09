@@ -7,7 +7,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\JsonResponse;
 
-class CreateRequest extends FormRequest
+class UpdatePasswordRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,16 +25,13 @@ class CreateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "name" => "required|string|max:255",
-            "email" => "required|email|unique:users,email",
             "password" => "required|confirmed",
             "password_confirmation" => "required",
-            "img" => "nullable|image|mimes:png,jpg,jpeg|max:2048",
         ];
     }
 
     protected function failedValidation(Validator $validator)
     {
-        throw new HttpResponseException(response()->json(['errors' => $validator->errors()], JsonResponse::HTTP_UNPROCESSABLE_ENTITY));
+        throw new HttpResponseException(response()->json(['errors' => $validator->errors(), 'id' => $this->id], JsonResponse::HTTP_UNPROCESSABLE_ENTITY));
     }
 }

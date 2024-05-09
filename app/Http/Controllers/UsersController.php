@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Users\CreateRequest;
+use App\Http\Requests\Users\UpdatePasswordRequest;
 use App\Http\Requests\Users\UpdateRequest;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 class UsersController extends Controller
@@ -56,6 +59,20 @@ class UsersController extends Controller
             "message" => "Berhasil mengubah data!",
             "data" => $user,
         ]);
+    }
+
+    public function updatePassword(UpdatePasswordRequest $request) {
+        $user = User::findOrFail($request->id);
+        
+        $hashedPassword = Hash::make($request->password);
+        $user->update([
+            "password" => $hashedPassword
+        ]);
+
+        return response()->json([
+            "success" => true,
+            "message" => "Berhasil mengubah password!"
+        ], 200);
     }
 
     public function delete($id) {

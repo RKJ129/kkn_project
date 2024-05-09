@@ -1,6 +1,12 @@
 $(document).ready(function () {
-    // Create Profile
 
+    $.ajaxSetup({
+        headers:{
+            'X_CSRF_TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+     });
+
+    // Create Profile
     $(".form-create").submit(function (e) { 
         e.preventDefault();
         const data = new FormData(this);
@@ -36,9 +42,6 @@ $(document).ready(function () {
         $.ajax({
             type: "POST",
             url: `/profile/update`,
-            headers : {
-                'X-CSRF-TOKEN' : $('meta[name="csrf-token"]').attr('content')
-            },
             data: data,
             processData: false,
             contentType: false,
@@ -73,9 +76,6 @@ $(document).ready(function () {
         $.ajax({
             type: "POST",
             url: "/profile/update/image",
-            headers : {
-                'X-CSRF-TOKEN' : $('meta[name="csrf-token"]').attr('content')
-            },
             data: data,
             processData: false,
             contentType: false,
@@ -99,416 +99,402 @@ $(document).ready(function () {
             }
         });
     });
-});
 
-// Kost
-// Get Kost
+    // Create Kost
+    $("#form-create-kost").on("submit", function(e) {
+        e.preventDefault();
+        const data = new FormData(this);
 
-// Create Kost
-$("#form-create-kost").on("submit", function(e) {
-    e.preventDefault();
-    const data = new FormData(this);
+        $.ajax({
+            type: "POST",
+            url: "kost/store",
+            data: data,
+            cache : false,
+            processData: false,
+            contentType: false,
+            success: function (response) {
+                $(".table-body-kost").html(response);
+                $("button#modal-btn-close-create-kost").click();
+                $(".form-create-kost")[0].reset();
+                $("input, textarea").each((index, element) => removeAlert(element));
 
-    $.ajax({
-        type: "POST",
-        url: "kost/store",
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="token"]').attr('value')
-        },
-        data: data,
-        cache : false,
-        processData: false,
-        contentType: false,
-        success: function (response) {
-            $(".table-body-kost").html(response);
-            $("button#modal-btn-close-create-kost").click();
-            $(".form-create-kost")[0].reset();
-            $("input, textarea").each((index, element) => removeAlert(element));
-
-            Swal.fire({
-                title : "Berhasil menambahkan data!",
-                icon : "success",
-                showCloseButton: true,
-            });
-        }, error : function(err) {
-            console.error(err);
-            const messageValidation = err.responseJSON.errors;
-            validateKost(messageValidation);
-        }
+                Swal.fire({
+                    title : "Berhasil menambahkan data!",
+                    icon : "success",
+                    showCloseButton: true,
+                });
+            }, error : function(err) {
+                console.error(err);
+                const messageValidation = err.responseJSON.errors;
+                validateKost(messageValidation);
+            }
+        });
     });
-});
 
 // Update Kost
-$("body").on("submit", ".form-update-kost", function(e) {
-    e.preventDefault();
+    $(".form-update-kost").on("submit", function(e) {
+        e.preventDefault();
 
-    const data = new FormData(this);
-    
-    $.ajax({
-        type: "POST",
-        url: "kost/update",
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="token"]').attr('value')
-        },
-        data: data,
-        cache: false,
-        processData: false,
-        contentType: false,
-        success: function (response) {
-            // console.info(response);
-            const data = response.data;
-            $(`tr#${data.id} td.name`).text(data.name);
-            $(`tr#${data.id} td.harga`).text(data.harga);
-            $(`tr#${data.id} td.alamat`).text(data.alamat);
-            $(`tr#${data.id} td.description`).text(data.description);
-            if(data.img != null) {
-                $(`tr#${data.id} td.img img`).attr("src", "/storage/kost/" + data.img);
+        const data = new FormData(this);
+        
+        $.ajax({
+            type: "POST",
+            url: "kost/update",
+            data: data,
+            cache: false,
+            processData: false,
+            contentType: false,
+            success: function (response) {
+                // console.info(response);
+                const data = response.data;
+                $(`tr#${data.id} td.name`).text(data.name);
+                $(`tr#${data.id} td.harga`).text(data.harga);
+                $(`tr#${data.id} td.alamat`).text(data.alamat);
+                $(`tr#${data.id} td.description`).text(data.description);
+                if(data.img != null) {
+                    $(`tr#${data.id} td.img img`).attr("src", "/storage/kost/" + data.img);
+                }
+
+                $(".modal-btn-close-update-kost").click();
+                $(".form-update-kost")[0].reset();
+
+                Swal.fire({
+                    title : response.message,
+                    icon : "success",
+                    showCloseButton: true,
+                });
+            }, error : function(err) {
+                const messageValidation = err.responseJSON.errors;
+                validateKost(messageValidation);
+                
             }
-
-            $(".modal-btn-close-update-kost").click();
-            $(".form-update-kost")[0].reset();
-
-            Swal.fire({
-                title : response.message,
-                icon : "success",
-                showCloseButton: true,
-            });
-        }, error : function(err) {
-            const messageValidation = err.responseJSON.errors;
-            validateKost(messageValidation);
-            
-        }
+        });
     });
-});
 
-// delete kost
-$("body").on("click", ".btn-delete-kost", function() {
-    const id = $(this).data('id');
+    // delete kost
+    $(".btn-delete-kost").on("click", function() {
+        const id = $(this).data('id');
 
-    Swal.fire({
-        title: "Are you sure?",
-        text: "You won't be able to revert this!",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        confirmButtonText: "Yes, delete it!"
-      }).then((result) => {
-        if (result.isConfirmed) {
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+        }).then((result) => {
+            if (result.isConfirmed) {
 
-            $.ajaxSetup({
-                headers:{
-                    'X_CSRF_TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-             });
-
-            $.ajax({
-                type: "DELETE",
-                url: "kost/delete/" + id,
-                cache: false,
-                success: function (response) {
-                    $(".table-body-kost tr#" + id).remove();
-                }, error: function(err) {
-                    console.error(err);
-                }
-            });
-
-          Swal.fire({
-            title: "Deleted!",
-            text: "Your file has been deleted.",
-            icon: "success"
-          });
-        }
-      });
-});
-
-// Create berita
-$("body").on("submit", ".form-create-berita", function(e) {
-    e.preventDefault();
-
-    const data = new FormData(this);
-
-    $.ajaxSetup({
-        headers:{
-            'X_CSRF_TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-     });
-     
-     $.ajax({
-        type: "POST",
-        url: "/berita/store",
-        data: data,
-        processData: false,
-        contentType: false,
-        cache: false,
-        success: function (response) {
-            $(".table-body-berita").html(response);
-
-            $("button#close-create-berita").click();
-            $(".form-create-berita")[0].reset();
-            $("input, textarea").each(( index, element) => removeAlert(element));
+                $.ajax({
+                    type: "DELETE",
+                    url: "kost/delete/" + id,
+                    cache: false,
+                    success: function (response) {
+                        $(".table-body-kost tr#" + id).remove();
+                    }, error: function(err) {
+                        console.error(err);
+                    }
+                });
 
             Swal.fire({
-                title: "Berhasil menambahkan data!",
+                title: "Deleted!",
+                text: "Your file has been deleted.",
                 icon: "success"
             });
-        }, error : function(err) {
-            const messageValidation = err.responseJSON.errors;
-            validateBerita(messageValidation);
-        }
-     });
-});
+            }
+        });
+    });
 
-// Update berita
-$("body").on("submit", ".form-update-berita", function(e) {
-    e.preventDefault();
+    // Create berita
+    $(".form-create-berita").on("submit", function(e) {
+        e.preventDefault();
 
-    const data = new FormData(this);
+        const data = new FormData(this);
 
-    $.ajaxSetup({
-        headers:{
-            'X_CSRF_TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-     });
+        $.ajax({
+            type: "POST",
+            url: "/berita/store",
+            data: data,
+            processData: false,
+            contentType: false,
+            cache: false,
+            success: function (response) {
+                $(".table-body-berita").html(response);
 
-    $.ajax({
-        type: "POST",
-        url: "/berita/update" ,
-        data: data,
-        processData: false,
-        contentType: false,
-        success: function (response) {
-            const data = response.data;
-            $(`tr#${data.id} td.thumbnail img`).attr("src", `/storage/berita/${data.img}`);
-            $(`tr#${data.id} td.judul`).text(data.judul);
-            $(`tr#${data.id} td.deskripsi`).text(data.description);
+                $("button#close-create-berita").click();
+                $(".form-create-berita")[0].reset();
+                $("input, textarea").each(( index, element) => removeAlert(element));
 
-            $("button#close-update-berita").click();
-            $(".form-update-berita")[0].reset();
+                Swal.fire({
+                    title: "Berhasil menambahkan data!",
+                    icon: "success"
+                });
+            }, error : function(err) {
+                const messageValidation = err.responseJSON.errors;
+                validateBerita(messageValidation);
+            }
+        });
+    });
+
+    // Update berita
+    $(".form-update-berita").on("submit", function(e) {
+        e.preventDefault();
+
+        const data = new FormData(this);
+
+        $.ajax({
+            type: "POST",
+            url: "/berita/update" ,
+            data: data,
+            processData: false,
+            contentType: false,
+            success: function (response) {
+                const data = response.data;
+                $(`tr#${data.id} td.thumbnail img`).attr("src", `/storage/berita/${data.img}`);
+                $(`tr#${data.id} td.judul`).text(data.judul);
+                $(`tr#${data.id} td.deskripsi`).text(data.description);
+
+                $("button#close-update-berita").click();
+                $(".form-update-berita")[0].reset();
+
+                Swal.fire({
+                    title: response.message,
+                    icon: "success"
+                });
+
+            },error: function(error) {
+                console.error(error);
+            }
+        });
+    });
+
+    // delete berita
+    $(".btn-delete-berita").on("click", function() {
+        const id = $(this).data('id');
+
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+
+                $.ajax({
+                    type: "DELETE",
+                    url: `/berita/delete/${id}`,
+                    cache: false,
+                    success: function (response) {
+                        $(".table-body-berita tr#" + id).remove();
+                    }, error: function(err) {
+                        console.error(err);
+                    }
+                });
 
             Swal.fire({
-                title: response.message,
+                title: "Deleted!",
+                text: "Your file has been deleted.",
                 icon: "success"
             });
-
-        },error: function(error) {
-            console.error(error);
-        }
+            }
+        });
     });
-});
 
-// delete berita
-$("body").on("click", ".btn-delete-berita", function() {
-    const id = $(this).data('id');
+    // create user
+    $(".form-create-user").on("submit", function(e) {
+        e.preventDefault();
 
-    Swal.fire({
-        title: "Are you sure?",
-        text: "You won't be able to revert this!",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        confirmButtonText: "Yes, delete it!"
-      }).then((result) => {
-        if (result.isConfirmed) {
+        const data = new FormData(this);
 
-            $.ajaxSetup({
-                headers:{
-                    'X_CSRF_TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-             });
-
-            $.ajax({
-                type: "DELETE",
-                url: `/berita/delete/${id}`,
-                cache: false,
-                data: {"_token" : $('meta[name="csrf-token"]').attr('content')}, 
-                success: function (response) {
-                    $(".table-body-berita tr#" + id).remove();
-                }, error: function(err) {
-                    console.error(err);
-                }
-            });
-
-          Swal.fire({
-            title: "Deleted!",
-            text: "Your file has been deleted.",
-            icon: "success"
-          });
-        }
-      });
-});
-
-// create user
-$("body").on("submit", ".form-create-user", function(e) {
-    e.preventDefault();
-
-    const data = new FormData(this);
-
-    $.ajax({
-        type: "POST",
-        url: "/users/store",
-        data: data,
-        processData: false,
-        contentType: false,
-        cache: false,
-        success: function (response) {
-            $("#btn-close-create-user").click();
-            $(".form-create-user")[0].reset();
-            $(".table-body-users").html(response);
-            removeAlertUser("input");
-        }, error: function(error) {
-            const messageValidation = error.responseJSON.errors;
-            console.info(messageValidation);
-            validateCreateUser(messageValidation);
-        }
+        $.ajax({
+            type: "POST",
+            url: "/users/store",
+            data: data,
+            processData: false,
+            contentType: false,
+            cache: false,
+            success: function (response) {
+                $("#btn-close-create-user").click();
+                $(".form-create-user")[0].reset();
+                $(".table-body-users").html(response);
+                removeAlertUser("input");
+            }, error: function(error) {
+                const messageValidation = error.responseJSON.errors;
+                console.info(messageValidation);
+                validateCreateUser(messageValidation);
+            }
+        });
     });
-});
 
-// update user
-$("body").on("submit", ".form-update-user", function(e) {
-    e.preventDefault();
-    const data = new FormData(this);
+    // update user
+    $(".form-update-user").on("submit", function(e) {
+        e.preventDefault();
+        const data = new FormData(this);
 
-    $.ajaxSetup({
-        headers:{
-            'X_CSRF_TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-     });
+        $.ajax({
+            type: "POST",
+            url: "/users/update",
+            data: data,
+            processData: false,
+            contentType: false,
+            cache: false,
+            success: function (response) {
+                const data = response.data;
 
-     $.ajax({
-        type: "POST",
-        url: "/users/update",
-        data: data,
-        processData: false,
-        contentType: false,
-        cache: false,
-        success: function (response) {
-            const data = response.data;
+                $(`tr#${data.id} td img`).attr("src", `/storage/users/${data.img}`);
+                $(`tr#${data.id} td.name`).text(data.name);
+                $(`tr#${data.id} td.email`).text(data.email);
 
-            $(`tr#${data.id} td img`).attr("src", `/storage/users/${data.img}`);
-            $(`tr#${data.id} td.name`).text(data.name);
-            $(`tr#${data.id} td.email`).text(data.email);
+                $(".close-update-user").click();
+                $(".form-update-user")[0].reset();
+                removeAlertUser("input");
 
-            $(".close-update-user").click();
-            $(".form-update-user")[0].reset();
-            removeAlertUser("input");
+                Swal.fire({
+                    title: response.message,
+                    icon: "success"
+                });
+            }, error: function(error) {
+                const id = error.responseJSON.id;
+                const messageValidation = error.responseJSON.errors;
+                validateUpdateUser(messageValidation, id);
+            }
+        });
+    });
 
-            Swal.fire({
-                title: response.message,
-                icon: "success"
-            });
-        }, error: function(error) {
-            const id = error.responseJSON.id;
-            const messageValidation = error.responseJSON.errors;
-            validateUpdateUser(messageValidation, id);
-        }
-     });
-});
+    // update password user
+    $(".form-update-password-user").on("submit", function(e) {
+        e.preventDefault();
 
-// delete user
-$("body").on("click", ".btn-delete-user", function() {
-    const id = $(this).data('id');
+        const data = new FormData(this);
 
-    Swal.fire({
-        title: "Are you sure?",
-        text: "You won't be able to revert this!",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        confirmButtonText: "Yes, delete it!"
-      }).then(result => {
-        if(result.isConfirmed) {
-            $.ajaxSetup({
-                headers:{
-                    'X_CSRF_TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
+        $.ajax({
+            type: "POST",
+            url: "/users/update-password",
+            data: data,
+            processData: false,
+            contentType: false,
+            cache: false,
+            success: function (response) {
+                $(".close-update-password-user").click();
+                $(".form-update-password-user")[0].reset();
+                removeAlertUser("input");
 
-            $.ajax({
-                type: "DELETE",
-                url: "/users/delete/" + id,
-                cache: false,
-                success: function (response) {
-                    $(".table-body-users tr#" + id).remove();
+                Swal.fire({
+                    title: response.message,
+                    icon: "success"
+                });
+            }, error: function(error) {
+                console.error(error);
+                const id = error.responseJSON.id;
+                const messageValidation = error.responseJSON.errors;
+                console.info(messageValidation);
+                validateUpdateUser(messageValidation, id);
+            }
+        });
+    });
 
+    // delete user
+    $(".btn-delete-user").on("click", function() {
+        const id = $(this).data('id');
+
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+        }).then(result => {
+            if(result.isConfirmed) {
+
+                $.ajax({
+                    type: "DELETE",
+                    url: "/users/delete/" + id,
+                    cache: false,
+                    success: function (response) {
+                        $(".table-body-users tr#" + id).remove();
+
+                        Swal.fire({
+                            title: response.message,
+                            icon: "success"
+                        });
+                    }
+                });
+            }
+        });    
+    });
+
+    // login
+    $("#form-login").on("submit", function(e) {
+        e.preventDefault();
+        const data = new FormData(this);
+
+        $.ajax({
+            type: "POST",
+            url: "login/action",
+            data: data,
+            cache: false,
+            processData: false,
+            contentType: false,
+            success: function (response) {
+                if(response.success) {
                     Swal.fire({
-                        title: response.message,
-                        icon: "success"
+                        type: 'success',
+                        title: 'Login Berhasil!',
+                        text: `Anda akan di arahkan dalam 3 Detik`,
+                        timer: 3000,
+                        showCancelButton: false,
+                        showConfirmButton: false,
+                    }).then(function() {
+                        window.location.href = "dashboard";
                     });
                 }
-            });
-        }
-      });    
-});
+            }, error : function(err) {
+                const messageValidation = err.responseJSON.errors;
+                const errorLogin = err.responseJSON
+                validateLogin(messageValidation);
 
-// login
-$("body").on("submit", "#form-login", function(e) {
-    e.preventDefault();
-    const data = new FormData(this);
-
-    $.ajax({
-        type: "POST",
-        url: "login/action",
-        data: data,
-        headers: {
-            'X_CSRF_TOKEN': $('meta[name="csrf-token"]').attr('content')
-        },
-        cache: false,
-        processData: false,
-        contentType: false,
-        success: function (response) {
-            if(response.success) {
-                Swal.fire({
-                    type: 'success',
-                    title: 'Login Berhasil!',
-                    text: `Anda akan di arahkan dalam 3 Detik`,
-                    timer: 3000,
-                    showCancelButton: false,
-                    showConfirmButton: false,
-                }).then(function() {
-                    window.location.href = "dashboard";
-                });
+                if(errorLogin.success == false) {
+                    Swal.fire({
+                        position: 'top-end',
+                        toast: true,
+                        icon: 'error',
+                        title: errorLogin.message,
+                        showConfirmButton: false,
+                        timer: 3000,
+                        timerProgressBar: true,
+                    });
+                }
             }
-        }, error : function(err) {
-            const messageValidation = err.responseJSON.errors;
-            const errorLogin = err.responseJSON
-            validateLogin(messageValidation);
+        });
+    });
 
-            if(errorLogin.success == false) {
-                Swal.fire({
-                    position: 'top-end',
-                    toast: true,
-                    icon: 'error',
-                    title: errorLogin.message,
-                    showConfirmButton: false,
-                    timer: 3000,
-                    timerProgressBar: true,
-                });
+    // logout
+    $("#logout").on("click", function(e) {
+        e.preventDefault();
+
+        Swal.fire({
+            title: "Apa kamu yakin ingin keluar?",
+            // text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#d33",
+            cancelButtonColor: "#3085d6",
+            confirmButtonText: "Keluar!"
+        }).then(result => {
+            if(result.isConfirmed) {
+                window.location.href = "/logout";
             }
-        }
+        });
     });
 });
 
-// logout
-$("body").on("click", "a#logout", function(e) {
-    e.preventDefault();
 
-    Swal.fire({
-        title: "Apa kamu yakin ingin keluar?",
-        // text: "You won't be able to revert this!",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#d33",
-        cancelButtonColor: "#3085d6",
-        confirmButtonText: "Keluar!"
-      }).then(result => {
-        if(result.isConfirmed) {
-            window.location.href = "/logout";
-        }
-      });
-});
 
 
 
@@ -684,16 +670,16 @@ function validateUpdateUser(message, id) {
 
     if(message.password) {
         const password = message.password[0];
-        showAlertUser("input.passwordCreateUser", password);
+        showAlertUser("input.passwordUpdateUser" + id, password);
     } else {
-        removeAlertUser("input.passwordCreateUser");
+        removeAlertUser("input.passwordUpdateUser" + id);
     }
 
     if(message.password_confirmation) {
         const pwConfirm = message.password_confirmation;
-        showAlertUser("input.passwordConfirmationCreateUser", pwConfirm);
+        showAlertUser("input.passwordConfirmationUpdateUser" + id, pwConfirm);
     } else {
-        removeAlertUser("input.passwordConfirmationCreateUser");
+        removeAlertUser("input.passwordConfirmationUpdateUser" + id);
     }
 }
 
