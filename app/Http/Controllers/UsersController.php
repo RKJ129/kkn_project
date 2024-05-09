@@ -30,7 +30,7 @@ class UsersController extends Controller
             "img" => $imageUser,
         ]);
 
-        $table = view('Users.table', ["data" => $this->getUsers()]);
+        $table = view('Users.table', ["users" => $this->getUsers()]);
         return response($table, 200);
     }
 

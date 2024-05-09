@@ -18,7 +18,7 @@
                 </div>
             </div>
         </div>
-    </div> 
+    </div>
 
     <section class="section">
         <div class="card">
@@ -42,7 +42,7 @@
                             <tr id="{{ $user->id }}"">
                                 <td class="img">
                                     <img class="img-fluid" style="width: 50px"
-                                        src="{{ Storage::url($user->img != null ? 'public/users/' . $user->img : 'public/users/user_default.jpeg' ) }}">
+                                        src="{{ Storage::url($user->img != null ? 'public/users/' . $user->img : 'public/users/user_default.jpeg') }}">
                                 </td>
                                 <td class="name">{{ $user->name }}</td>
                                 <td class="email">{{ $user->email }}</td>
