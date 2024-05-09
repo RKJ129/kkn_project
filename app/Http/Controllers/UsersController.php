@@ -12,7 +12,7 @@ class UsersController extends Controller
 {
 
     private function getUsers() {
-        return User::all();
+        return User::where('id', '!=', Auth::user()->id)->get();
     }
 
     public function index() {
@@ -35,9 +35,6 @@ class UsersController extends Controller
     }
 
     public function update(UpdateRequest $request) {
-        // if($request->has('id')) {
-        //     return response("Ada ID");
-        // }
         $user = User::findOrFail($request->id);
 
         if($request->hasFile('img')) {
@@ -58,6 +55,15 @@ class UsersController extends Controller
             "success" => true,
             "message" => "Berhasil mengubah data!",
             "data" => $user,
+        ]);
+    }
+
+    public function delete($id) {
+        User::findOrFail($id)->delete();
+
+        return response()->json([
+            "success" => true,
+            "message" => "Berhasil menghapus data!"
         ]);
     }
 }

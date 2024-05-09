@@ -353,7 +353,6 @@ $("body").on("submit", ".form-create-user", function(e) {
         contentType: false,
         cache: false,
         success: function (response) {
-            console.info(response);
             $("#btn-close-create-user").click();
             $(".table-body-users").html(response);
         }, error: function(error) {
@@ -362,6 +361,7 @@ $("body").on("submit", ".form-create-user", function(e) {
     });
 });
 
+// update user
 $("body").on("submit", ".form-update-user", function(e) {
     e.preventDefault();
     const data = new FormData(this);
@@ -397,6 +397,43 @@ $("body").on("submit", ".form-update-user", function(e) {
             console.error(error);
         }
      });
+});
+
+// delete user
+$("body").on("click", ".btn-delete-user", function() {
+    const id = $(this).data('id');
+
+    Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!"
+      }).then(result => {
+        if(result.isConfirmed) {
+            $.ajaxSetup({
+                headers:{
+                    'X_CSRF_TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $.ajax({
+                type: "DELETE",
+                url: "/users/delete/" + id,
+                cache: false,
+                success: function (response) {
+                    $(".table-body-users tr#" + id).remove();
+
+                    Swal.fire({
+                        title: response.message,
+                        icon: "success"
+                    });
+                }
+            });
+        }
+      });    
 });
 
 // login
