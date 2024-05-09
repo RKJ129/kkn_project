@@ -2,7 +2,10 @@
 
 namespace App\Http\Requests\Users;
 
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Exceptions\HttpResponseException;
+use Illuminate\Http\JsonResponse;
 
 class UpdateRequest extends FormRequest
 {
@@ -26,5 +29,10 @@ class UpdateRequest extends FormRequest
             "email" => "required|email|unique:users,email,".$this->id,
             "img" => "nullable|image|mimes:png,jpg,jpeg|max:2048",
         ];
+    }
+
+    protected function failedValidation(Validator $validator)
+    {
+        throw new HttpResponseException(response()->json(['errors' => $validator->errors(), 'id' => $this->id], JsonResponse::HTTP_UNPROCESSABLE_ENTITY));
     }
 }

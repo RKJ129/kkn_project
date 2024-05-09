@@ -460,7 +460,7 @@
 
     <script src="{{ asset('admin/vendors/chartjs/Chart.min.js') }}"></script>
     <script src="{{ asset('admin/vendors/apexcharts/apexcharts.min.js') }}"></script>
-    <script src="{{ asset('admin/js/pages/dashboard.js') }}"></script>
+    {{-- <script src="{{ asset('admin/js/pages/dashboard.js') }}"></script> --}}
 
     <script src="{{ asset('admin/vendors/simple-datatables/simple-datatables.js') }}"></script>
     <script src="{{ asset('admin/js/vendors.js') }}"></script>

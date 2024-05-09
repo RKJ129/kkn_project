@@ -354,9 +354,13 @@ $("body").on("submit", ".form-create-user", function(e) {
         cache: false,
         success: function (response) {
             $("#btn-close-create-user").click();
+            $(".form-create-user")[0].reset();
             $(".table-body-users").html(response);
+            removeAlertUser("input");
         }, error: function(error) {
-            console.error(error);
+            const messageValidation = error.responseJSON.errors;
+            console.info(messageValidation);
+            validateCreateUser(messageValidation);
         }
     });
 });
@@ -386,15 +390,18 @@ $("body").on("submit", ".form-update-user", function(e) {
             $(`tr#${data.id} td.name`).text(data.name);
             $(`tr#${data.id} td.email`).text(data.email);
 
-            $("button#close-update-user").click();
+            $(".close-update-user").click();
             $(".form-update-user")[0].reset();
+            removeAlertUser("input");
 
             Swal.fire({
                 title: response.message,
                 icon: "success"
             });
         }, error: function(error) {
-            console.error(error);
+            const id = error.responseJSON.id;
+            const messageValidation = error.responseJSON.errors;
+            validateUpdateUser(messageValidation, id);
         }
      });
 });
@@ -452,7 +459,6 @@ $("body").on("submit", "#form-login", function(e) {
         processData: false,
         contentType: false,
         success: function (response) {
-            console.info(response);
             if(response.success) {
                 Swal.fire({
                     type: 'success',
@@ -516,8 +522,17 @@ function showAlertLogin(selector, message) {
     $(selector).parent().parent().append(`<div class="error text-danger mt-1">${message}</div>`);
 }
 
+function showAlertUser(selector, message) {
+    $(selector).addClass("is-invalid").next().remove();
+    $(selector).parent().append(`<div class="error text-danger mt-1">${message}</div>`);
+}
+
 function removeAlert(selector) {
     $(selector).removeClass("is-invalid").next(".alert").remove();
+}
+
+function removeAlertUser(selector) {
+    $(selector).removeClass("is-invalid").next("div.error").remove();
 }
 
 function removeAlertLogin(selector) {
@@ -615,6 +630,70 @@ function validateBerita(message) {
         showAlert("input#img", message.img[0]);
     } else {
         removeAlert("input#img");
+    }
+}
+
+function validateCreateUser(message) {
+    if(message) {
+        if(message.name) {
+            const name = message.name[0];
+            showAlertUser("input.nameCreateUser", name);
+        } else {
+            removeAlertUser("input.nameCreateUser");
+        }
+
+        if(message.email) {
+            const email = message.email[0];
+            showAlertUser("input.emailCreateUser", email);
+        } else {
+            removeAlertUser("input.emailCreateUser");
+        }
+
+        if(message.password) {
+            const password = message.password[0];
+            showAlertUser("input.passwordCreateUser", password);
+        } else {
+            removeAlertUser("input.passwordCreateUser");
+        }
+
+        if(message.password_confirmation) {
+            const pwConfirm = message.password_confirmation;
+            showAlertUser("input.passwordConfirmationCreateUser", pwConfirm);
+        } else {
+            removeAlertUser("input.passwordConfirmationCreateUser");
+        }
+    } else {
+        $("input, div.error").each((index, element) => console.info(element));
+    }
+}
+
+function validateUpdateUser(message, id) {
+    if(message.name) {
+        const name = message.name[0];
+        showAlertUser("input.nameUpdateUser" + id, name);
+    } else {
+        removeAlertUser("input.nameUpdateUser" + id);
+    }
+
+    if(message.email) {
+        const email = message.email[0];
+        showAlertUser("input.emailUpdateUser" + id, email);
+    } else {
+        removeAlertUser("input.emailUpdateUser" + id);
+    }
+
+    if(message.password) {
+        const password = message.password[0];
+        showAlertUser("input.passwordCreateUser", password);
+    } else {
+        removeAlertUser("input.passwordCreateUser");
+    }
+
+    if(message.password_confirmation) {
+        const pwConfirm = message.password_confirmation;
+        showAlertUser("input.passwordConfirmationCreateUser", pwConfirm);
+    } else {
+        removeAlertUser("input.passwordConfirmationCreateUser");
     }
 }
 

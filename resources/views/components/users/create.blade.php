@@ -15,29 +15,29 @@
                         <div class="row">
                             <div class="col-12">
                                 <div class="form-group" id="form-user-name">
-                                    <label for="name">Nama</label>
-                                    <input type="text" id="name" class="form-control" name="name"
+                                    <label for="nameCreateUser">Nama</label>
+                                    <input type="text" id="nameCreateUser" class="form-control nameCreateUser" name="name"
                                         placeholder="Nama User">
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="form-group" id="form-user-email">
-                                    <label for="email">Email</label>
-                                    <input type="email" id="email" class="form-control" name="email"
+                                    <label for="emailCreateUser">Email</label>
+                                    <input type="email" id="emailCreateUser" class="form-control emailCreateUser" name="email"
                                         placeholder="Email">
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="form-group" id="form-user-password">
-                                    <label for="kontak">Password</label>
-                                    <input type="password" id="password" class="form-control" name="password"
+                                    <label for="passwordCreateUser">Password</label>CreateUser
+                                    <input type="password" id="passwordCreateUser" class="form-control passwordCreateUser" name="password"
                                         placeholder="Password">
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="form-group" id="form-user-confirmation-password">
-                                    <label for="password_confirmation">Konfirmasi Password</label>
-                                    <input type="password" id="password_confirmation" class="form-control" name="password_confirmation"
+                                    <label for="passwordConfirmationCreateUser">Konfirmasi Password</label>
+                                    <input type="password" id="passwordConfirmationCreateUser" class="form-control passwordConfirmationCreateUser" name="password_confirmation"
                                         placeholder="Konfirmasi Password">
                                 </div>
                             </div>
