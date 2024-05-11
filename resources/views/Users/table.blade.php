@@ -12,8 +12,9 @@
                     data-target="#update-user{{ $user->id }}"><i class="fa-solid fa-pen-to-square"></i></button>
                 <button type="button" class="btn icon btn-warning" data-toggle="modal"
                     data-target="#update-user-password{{ $user->id }}"><i class="fa-solid fa-lock"></i></button>
-                <button type="button" class="btn icon btn-danger btn-delete-user" data-id="{{ $user->id }}"
-                    data-token="{{ csrf_token() }}"><i class="fa-solid fa-trash"></i></button>
+                <button type="button" class="btn icon btn-danger btn-delete-user" id="btn-delete-user"
+                    data-id="{{ $user->id }}" data-token="{{ csrf_token() }}"><i
+                        class="fa-solid fa-trash"></i></button>
             </div>
             <x-users.update :user="$user" />
             <x-users.updatePassword :user="$user" />

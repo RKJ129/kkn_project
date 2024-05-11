@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="{{ asset('admin/css/style.css') }}">
 
     <link rel="stylesheet" href="{{ asset('admin/vendors/chartjs/Chart.min.css') }}">
+    {{-- <link rel="stylesheet" href="https://cdn.datatables.net/2.0.7/css/dataTables.dataTables.css" /> --}}
     <link rel="stylesheet" href="{{ asset('admin/vendors/simple-datatables/style.css') }}">
 
     <link rel="stylesheet" href="{{ asset('admin/vendors/perfect-scrollbar/perfect-scrollbar.css') }}">
@@ -464,14 +465,15 @@
 
     <script src="{{ asset('admin/vendors/simple-datatables/simple-datatables.js') }}"></script>
     <script src="{{ asset('admin/js/vendors.js') }}"></script>
-
+    
+    
     <script src="{{ asset('admin/js/main.js') }}"></script>
-
+    
     {{-- <script src="{{ asset('admin/b') }}"></script> --}}
-
+    
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-
+    
     <script src="{{ asset('admin/js/jquery.js') }}"></script>
 </body>
 

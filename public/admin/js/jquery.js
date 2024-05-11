@@ -131,8 +131,8 @@ $(document).ready(function () {
         });
     });
 
-// Update Kost
-    $(".form-update-kost").on("submit", function(e) {
+    // Update Kost
+    $("body").on("submit", ".form-update-kost", function(e) {
         e.preventDefault();
 
         const data = new FormData(this);
@@ -172,7 +172,7 @@ $(document).ready(function () {
     });
 
     // delete kost
-    $(".btn-delete-kost").on("click", function() {
+    $("body").on("click", ".btn-delete-kost", function() {
         const id = $(this).data('id');
 
         Swal.fire({
@@ -322,6 +322,13 @@ $(document).ready(function () {
                 $(".form-create-user")[0].reset();
                 $(".table-body-users").html(response);
                 removeAlertUser("input");
+
+                Swal.fire({
+                    title: "Berhasil menambahkan data!",
+                    icon: "success"
+                });
+
+                setTimeout(() => location.reload(), 1000);
             }, error: function(error) {
                 const messageValidation = error.responseJSON.errors;
                 console.info(messageValidation);
@@ -331,7 +338,7 @@ $(document).ready(function () {
     });
 
     // update user
-    $(".form-update-user").on("submit", function(e) {
+    $("body").on("submit", ".form-update-user", function(e) {
         e.preventDefault();
         const data = new FormData(this);
 
@@ -345,7 +352,7 @@ $(document).ready(function () {
             success: function (response) {
                 const data = response.data;
 
-                $(`tr#${data.id} td img`).attr("src", `/storage/users/${data.img}`);
+                // $(`tr#${data.id} td img`).attr("src", `/storage/users/${data.img}`);
                 $(`tr#${data.id} td.name`).text(data.name);
                 $(`tr#${data.id} td.email`).text(data.email);
 
@@ -356,8 +363,9 @@ $(document).ready(function () {
                 Swal.fire({
                     title: response.message,
                     icon: "success"
-                });
+                });                
             }, error: function(error) {
+                console.error(error);
                 const id = error.responseJSON.id;
                 const messageValidation = error.responseJSON.errors;
                 validateUpdateUser(messageValidation, id);
@@ -366,7 +374,7 @@ $(document).ready(function () {
     });
 
     // update password user
-    $(".form-update-password-user").on("submit", function(e) {
+    $("body").on("submit", ".form-update-password-user", function(e) {
         e.preventDefault();
 
         const data = new FormData(this);
@@ -398,9 +406,8 @@ $(document).ready(function () {
     });
 
     // delete user
-    $(".btn-delete-user").on("click", function() {
+    $("body").on("click", ".btn-delete-user", function() {
         const id = $(this).data('id');
-
         Swal.fire({
             title: "Are you sure?",
             text: "You won't be able to revert this!",

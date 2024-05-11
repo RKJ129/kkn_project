@@ -14,7 +14,7 @@
                     <div class="form-body">
                         <div class="row">
                             <div class="col-12">
-                                <input type="hidden" name="id" value="{{ $user->id }}">
+                                <input type="hidden" name="id" class="id" value="{{ $user->id }}">
                             </div>
                             <div class="col-12">
                                 <div class="form-group" id="form-user-name">

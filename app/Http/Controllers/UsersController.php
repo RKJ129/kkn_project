@@ -33,7 +33,7 @@ class UsersController extends Controller
             "img" => $imageUser,
         ]);
 
-        $table = view('Users.table', ["users" => $this->getUsers()]);
+        $table = view('Users.table', ['users' => $this->getUsers()]);
         return response($table, 200);
     }
 
@@ -65,9 +65,7 @@ class UsersController extends Controller
         $user = User::findOrFail($request->id);
         
         $hashedPassword = Hash::make($request->password);
-        $user->update([
-            "password" => $hashedPassword
-        ]);
+        $user->update(["password" => $hashedPassword]);
 
         return response()->json([
             "success" => true,
