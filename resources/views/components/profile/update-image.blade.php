@@ -17,9 +17,15 @@
                                 <input type="hidden" name="id" id="id" value="{{ $profile->id }}">
                             </div>
                             <div class="col-12">
+                                <div class="form-group" id="profile-name">
+                                    <label for="name">Foto</label>
+                                    <input type="text" name="name" id="name" class="form-control" value="{{ $profile->name }}">
+                                </div>
+                            </div>
+                            <div class="col-12">
                                 <div class="form-group" id="form-profile-img">
                                     <label for="img">Foto</label>
-                                    <input type="file" name="img" id="img" class="form-control">
+                                    <input type="file" name="img" id="img" class="form-control" accept="image/*">
                                 </div>
                             </div>
                         </div>

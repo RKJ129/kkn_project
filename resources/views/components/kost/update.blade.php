@@ -9,9 +9,8 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form class="form-update-kost" id="form-update-kost">
+                <form class="form-update-kost" id="form-update-kost" enctype="multipart/form-data"">
                     @csrf
-                    {{-- @method('PUT') --}}
                     <div class="form-body">
                         <div class="row">
                             <input type="hidden" name="id" id="id" value="{{ $item->id }}">
@@ -26,16 +25,16 @@
                             <div class="col-12">
                                 <div class="form-group" id="form-kost-harga">
                                     <label for="harga">Harga</label>
-                                    <input type="number" id="harga"
-                                        class="form-control" name="harga" value="{{ $item->harga }}"
+                                    <input type="text" id="harga"
+                                        class="form-control harga" name="harga" value="{{ $item->harga }}"
                                         placeholder="Harga">
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="form-group" id="form-kost-kontak">
                                     <label for="kontak">Kontak</label>
-                                    <input type="number" id="kontak"
-                                        class="form-control" name="kontak" value="{{ $item->kontak }}"
+                                    <input type="text" id="kontak"
+                                        class="form-control kontak" name="kontak" value="{{ $item->kontak }}"
                                         placeholder="Kontak">
                                 </div>
                             </div>
@@ -54,7 +53,7 @@
                             <div class="col-12">
                                 <div class="form-group" id="form-profile-img">
                                     <label for="img" class="form-label">Foto</label>
-                                    <input class="form-control" type="file" id="img" name="img">
+                                    <input class="form-control" type="file" id="img" name="img" accept="image/*">
                                     {{-- <small class="text-danger">Optional</small> --}}
                                     <p class="text-danger">*<small>Optional</small></p>
                                 </div>

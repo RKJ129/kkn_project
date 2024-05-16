@@ -11,12 +11,5 @@ class ProfileRT extends Model
     use HasFactory;
 
     protected $table = 'profile_rt';
-    protected $fillable = ['img', 'name', 'sambutan', 'deskripsi', 'jumlah_penduduk'];
-
-    public function getImgAttribute($value) {
-        if($value == null) {
-            return null;
-        }
-        return "/storage/profile/" . $value;
-    }
+    protected $fillable = ['img', 'name', 'sambutan', 'visi', 'misi', 'deskripsi', 'deskripsi_kost', 'jumlah_penduduk'];
 }

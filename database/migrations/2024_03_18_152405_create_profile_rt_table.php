@@ -16,8 +16,11 @@ return new class extends Migration
             $table->string('name', 100)->nullable();
             $table->text('sambutan')->nullable();
             $table->text('deskripsi')->nullable();
-            $table->string('img', 255)->nullable();
+            $table->text('deskripsi_kost')->nullable();
+            $table->text('visi')->nullable();
+            $table->text('misi')->nullable();
             $table->integer('jumlah_penduduk')->unsigned()->nullable();
+            $table->string('img', 255)->nullable();
             $table->timestamps();
         });
     }

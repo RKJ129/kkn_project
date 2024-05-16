@@ -18,9 +18,7 @@ return new class extends Migration
             $table->text('alamat')->nullable();
             $table->text('description')->nullable();
             $table->string('img', 255)->nullable();
-            $table->string('fasilitas', 255)->nullable();
-            $table->integer('kontak')->unsigned()->nullable();
-            $table->integer('star_rating')->unsigned()->nullable();
+            $table->bigInteger('kontak')->unsigned()->nullable();
             $table->timestamps();
         });
     }

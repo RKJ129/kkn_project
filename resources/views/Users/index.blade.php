@@ -42,7 +42,7 @@
                             <tr id="{{ $user->id }}"">
                                 <td class="img">
                                     <img class="img-fluid" style="width: 50px"
-                                        src="{{ Storage::url($user->img != null ? 'public/users/' . $user->img : 'public/users/user_default.jpeg') }}">
+                                        src="{{ $user->img != null ? '/img/users/' . $user->img : '/img/users/user_default.jpeg' }}">
                                 </td>
                                 <td class="name">{{ $user->name }}</td>
                                 <td class="email">{{ $user->email }}</td> 

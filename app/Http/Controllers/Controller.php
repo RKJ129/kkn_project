@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
+use Illuminate\Support\Facades\File;
 
 class Controller extends BaseController
 {
@@ -14,7 +15,7 @@ class Controller extends BaseController
         if($request->hasFile('img')) {
             $img = $request->file('img');
             $imgName = time() . "_" . $img->getClientOriginalName();
-            $img->storeAs($directory, $imgName);            
+            $img->move($directory, $imgName);            
 
             return $imgName;
         } else {
@@ -23,6 +24,6 @@ class Controller extends BaseController
     }
 
     protected function imageUpdate($newImage, $oldImage) {
-        return $newImage != null ? $newImage : $oldImage;
+         return $newImage != null ? $newImage : $oldImage;
     }
 }

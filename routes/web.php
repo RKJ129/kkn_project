@@ -31,9 +31,9 @@ Route::resource('dashboard', DashboardController::class)->middleware('auth');
 
 Route::middleware('auth')->prefix('/profile')->name('profile.')->group(function() {
     Route::get('/', [ProfileController::class, 'index'])->name('index');
-    Route::post('/store', [ProfileController::class, 'store'])->name('store');
     Route::post('/update', [ProfileController::class, 'update'])->name('update');
     Route::post('/update/image', [ProfileController::class, 'updateImage'])->name('updateImage');
+    Route::delete('/delete/image', [ProfileController::class, 'deleteImage'])->name('deleteImage');
 });
 
 Route::middleware('auth')->prefix('/kost')->name('kost.')->group(function() {

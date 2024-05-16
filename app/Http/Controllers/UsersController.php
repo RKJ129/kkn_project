@@ -9,6 +9,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 
 class UsersController extends Controller
@@ -24,7 +25,7 @@ class UsersController extends Controller
     }
 
     public function store(CreateRequest $request) {
-        $imageUser = parent::setImg($request, "public/users");
+        $imageUser = parent::setImg($request, "img/users");
 
         User::create([
             "name" => $request->name,
@@ -41,10 +42,10 @@ class UsersController extends Controller
         $user = User::findOrFail($request->id);
 
         if($request->hasFile('img')) {
-            Storage::delete("public/users/" . $request->img);
+            File::delete("img/users/" . $request->img);
         }
 
-        $newImage = parent::setImg($request, "public/users");
+        $newImage = parent::setImg($request, "img/users");
         $oldImage = $user->img;
         $imageUser = parent::imageUpdate($newImage, $oldImage);
 
@@ -74,8 +75,13 @@ class UsersController extends Controller
     }
 
     public function delete($id) {
-        User::findOrFail($id)->delete();
+        $user = User::findOrFail($id);
+        if(File::exists('img/users/' . $user->img)) {
+            File::delete('img/users/' . $user->img);
+        }
 
+        $user->delete();
+        
         return response()->json([
             "success" => true,
             "message" => "Berhasil menghapus data!"

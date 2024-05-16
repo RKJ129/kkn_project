@@ -24,8 +24,8 @@
                             <div class="col-12">
                                 <div class="form-group" id="form-kost-harga">
                                     <label for="harga">Harga</label>
-                                    <input type="number" id="harga"
-                                        class="form-control" name="harga"
+                                    <input type="text" id="harga"
+                                        class="form-control harga" name="harga"
                                         placeholder="Harga">
                                 </div>
                             </div>
@@ -33,7 +33,7 @@
                                 <div class="form-group" id="form-kost-kontak">
                                     <label for="kontak">Kontak</label>
                                     <input type="number" id="kontak"
-                                        class="form-control" name="kontak"
+                                        class="form-control kontak" name="kontak"
                                         placeholder="Kontak">
                                 </div>
                             </div>
@@ -52,7 +52,7 @@
                             <div class="col-12">
                                 <div class="form-group" id="form-profile-img">
                                     <label for="img" class="form-label">Foto</label>
-                                    <input class="form-control" type="file" id="img" name="img">
+                                    <input class="form-control" type="file" id="img" name="img" accept="image/*">
                                     {{-- <small class="text-danger">Optional</small> --}}
                                     <p class="text-danger">*<small>Optional</small></p>
                                 </div>
@@ -68,16 +68,6 @@
                     </div>
                 </form>
             </div>
-            {{-- <div class="modal-footer">
-                <button type="button" class="btn" data-dismiss="modal">
-                    <i class="bx bx-x d-block d-sm-none"></i>
-                    <span class="d-none d-sm-block">Close</span>
-                </button>
-                <button type="submit" class="btn btn-primary ml-1" data-dismiss="modal">
-                    <i class="bx bx-check d-block d-sm-none"></i>
-                    <span class="d-none d-sm-block">Accept</span>
-                </button>
-            </div> --}}
         </div>
     </div>
 </div>

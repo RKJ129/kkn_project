@@ -2,11 +2,12 @@
     <tr id="{{ $item->id }}"">
         <td class="name">{{ $item->name }}</td>
         <td class="harga">{{ $item->harga }}</td>
+        <td class="kontak">{{ $item->kontak }}</td>
         <td class="alamat">{{ $item->alamat }}</td>
         <td class="description">{{ $item->description }}</td>
         <td class="img">
             <img class="img-fluid" style="width: 50px"
-                src="{{ $item->img != null ? $item->img : Storage::url('kost/default.jpeg') }}">
+                src="{{ $item->img != null ? '/img/kost/' . $item->img : 'img/kost/default.jpeg' }}">
         </td>
         <td>
             <div class="d-flex" style="gap: 10px">

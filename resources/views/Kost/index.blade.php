@@ -27,15 +27,16 @@
                     <button type="button" class="btn icon icon-left btn-sm btn-primary mb-2" data-toggle="modal"
                         data-target="#create-kost"><i data-feather="plus" width="20"></i>Add</button>
                     <x-kost.create />
-                    <table class='table table-striped table-kost' id="table1">
+                    <table class='table table-striped table-responsive table-kost' id="table1">
                         <thead>
                             <tr>
-                                <th>Nama</th>
-                                <th>Harga</th>
-                                <th>Alamat</th>
-                                <th>Deskripsi</th>
-                                <th>Foto</th>
-                                <th>Aksi</th>
+                                <th scope="col">Nama</th>
+                                <th scope="col">Harga</th>
+                                <th scope="col">Kontak</th>
+                                <th scope="col">Alamat</th>
+                                <th scope="col">Deskripsi</th>
+                                <th scope="col">Foto</th>
+                                <th scope="col">Aksi</th>
                             </tr>
                         </thead>
                         <tbody class="table-body-kost">
@@ -43,11 +44,12 @@
                                 <tr id="{{ $item->id }}"">
                                     <td class="name">{{ $item->name }}</td>
                                     <td class="harga">{{ $item->harga }}</td>
+                                    <td class="kontak">{{ $item->kontak }}</td>
                                     <td class="alamat">{{ $item->alamat }}</td>
                                     <td class="description">{{ $item->description }}</td>
                                     <td class="img">
                                         <img class="img-fluid" style="width: 50px"
-                                            src="{{ $item->img != null ? $item->img : Storage::url('kost/default.jpeg') }}">
+                                            src="{{ $item->img != null ? '/img/kost/' . $item->img : 'img/kost/default.jpeg' }}">
                                     </td>
                                     <td>
                                         <div class="d-flex" style="gap: 10px">

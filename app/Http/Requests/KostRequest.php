@@ -26,7 +26,7 @@ class KostRequest extends FormRequest
     {
         return [
             "name" => "required|string|max:255",
-            "harga" => "required|numeric",
+            "harga" => "required|string",
             "kontak" => "required|numeric",
             "alamat" => "required|string",
             "description" => "required|string",

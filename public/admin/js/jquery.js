@@ -37,30 +37,25 @@ $(document).ready(function () {
     $(".form-update").on("submit", function(e) {
         e.preventDefault();
 
-        const data = new FormData(this);
+        let data = new FormData(this);
+        const misi = $("#snow").text();
+        data.append("misi", misi);
 
         $.ajax({
             type: "POST",
             url: `/profile/update`,
             data: data,
+            cache: false,
             processData: false,
             contentType: false,
             success: function (response) {
-                console.info(response);
-                const data = response.data;
-
-                $("p.name-rt").text(data.name);
-                $("p.sambutan-rt").text(data.sambutan);
-                $("p.deskripsi-rt").text(data.deskripsi);
-
-                $(".form-update")[0].reset();
-                $("#modal-btn-close-update-profile").click();
-
+  
                 Swal.fire({
                     title : response.message,
                     icon : "success",
                     showCloseButton: true,
                 });
+
             }, error : function(err) {
                 const messageValidation = err.responseJSON;
                 validateProfileRT(messageValidation);
@@ -81,7 +76,12 @@ $(document).ready(function () {
             contentType: false,
             success: function (response) {
                 const data = response.data;
-                $("img#foto-rt").attr("src", `/img/profile/${data.img}`);
+                $(".name-rt").text(data.name);
+                
+                if(data.img != null) {
+                    $("img#foto-rt").attr("src", `/img/profile/${data.img}`);
+                    $("#delete-image-profile").removeClass("disabled");
+                }
 
                 $("button#modal-btn-close-update-profile-image").click();
 
@@ -98,6 +98,42 @@ $(document).ready(function () {
                 validateProfileRT(messageValidation);
             }
         });
+    });
+
+    // delete Image Profile
+    $("body").on("click", "#delete-image-profile", function(e) {
+        e.preventDefault()
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+        }).then(result => {
+            if(result.isConfirmed) {
+                $.ajax({
+                    type: "DELETE",
+                    url: "profile/delete/image",
+                    cache: false,
+                    success: function (response) {
+                        const pathDefault = "img/profile/profile_default.jpeg";
+                        $("#foto-rt").attr("src", pathDefault);
+                        $("#delete-image-profile").addClass("disabled");
+
+                        Swal.fire({
+                            title : response.message,
+                            icon : "success",
+                            showCloseButton: true,
+                        });
+                    }, error(err) {
+                        console.error(err);
+                    }
+                });
+            }
+        });
+        
     });
 
     // Create Kost
@@ -149,10 +185,11 @@ $(document).ready(function () {
                 const data = response.data;
                 $(`tr#${data.id} td.name`).text(data.name);
                 $(`tr#${data.id} td.harga`).text(data.harga);
+                $(`tr#${data.id} td.kontak`).text(data.kontak);
                 $(`tr#${data.id} td.alamat`).text(data.alamat);
                 $(`tr#${data.id} td.description`).text(data.description);
                 if(data.img != null) {
-                    $(`tr#${data.id} td.img img`).attr("src", "/storage/kost/" + data.img);
+                    $(`tr#${data.id} td.img img`).attr("src", "/img/kost/" + data.img);
                 }
 
                 $(".modal-btn-close-update-kost").click();
@@ -501,9 +538,27 @@ $(document).ready(function () {
     });
 });
 
+$(".harga").on("input", function(e) {
+    const price = formatRupiah(this.value, 'Rp. ');
+    $(this).val(price);
+});
 
-
-
+function formatRupiah(angka, prefix)
+{
+    let number_string = angka.replace(/[^,\d]/g, '').toString(),
+    split    = number_string.split(','),
+    sisa     = split[0].length % 3,
+    rupiah     = split[0].substr(0, sisa),
+    ribuan     = split[0].substr(sisa).match(/\d{3}/gi);
+        
+    if (ribuan) {
+        separator = sisa ? '.' : '';
+        rupiah += separator + ribuan.join('.');
+    }
+    
+    rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
+    return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
+}
 
 function showAlert(selector, message) {
     $(selector).addClass("is-invalid").next().remove();

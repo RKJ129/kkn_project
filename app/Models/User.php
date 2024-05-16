@@ -43,11 +43,4 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
-
-    // public function getImgAttribute($value) {
-    //     if($value == null) {
-    //         return null;
-    //     }
-    //     return "/storage/users/" . $value;
-    // }
 }
