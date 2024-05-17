@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Kost;
+use App\Models\ProfileRT;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -11,7 +13,9 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        return view("Dashboard.index");
+        $profile = ProfileRT::first();
+        $kost = Kost::all();
+        return view("Dashboard.index", compact('profile', 'kost'));
     }
 
     /**

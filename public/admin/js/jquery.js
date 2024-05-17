@@ -1,5 +1,7 @@
 $(document).ready(function () {
 
+    toolTip();
+
     $.ajaxSetup({
         headers:{
             'X_CSRF_TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -121,6 +123,7 @@ $(document).ready(function () {
                         const pathDefault = "img/profile/profile_default.jpeg";
                         $("#foto-rt").attr("src", pathDefault);
                         $("#delete-image-profile").addClass("disabled");
+                        toolTip();
 
                         Swal.fire({
                             title : response.message,
@@ -542,6 +545,13 @@ $(".harga").on("input", function(e) {
     const price = formatRupiah(this.value, 'Rp. ');
     $(this).val(price);
 });
+
+function toolTip () {
+    const hasClass = $("#delete-image-profile").hasClass("disabled");
+    if(hasClass) {
+        $("#delete-image-profile").attr("data-bs-toggle", "tooltip").attr("data-bs-placement", "right").attr("title", "Tidak ada gambar!");
+    }
+}
 
 function formatRupiah(angka, prefix)
 {
