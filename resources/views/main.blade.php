@@ -63,12 +63,12 @@
                             </a>
                         </li>
 
-                        <li class="sidebar-item {{ Request::url() === route('berita.index') ? 'active' : '' }}">
+                        {{-- <li class="sidebar-item {{ Request::url() === route('berita.index') ? 'active' : '' }}">
                             <a href="{{ route('berita.index') }}" class='sidebar-link'>
                                 <i data-feather="layout" width="20"></i>
                                 <span>Berita</span>
                             </a>
-                        </li>
+                        </li> --}}
                     </ul>
                 </div>
                 <button class="sidebar-toggler btn x"><i data-feather="x"></i></button>
