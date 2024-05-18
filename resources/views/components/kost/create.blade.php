@@ -63,7 +63,7 @@
                             <div class="col-12">
                                 <div class="form-group" id="form-profile-img">
                                     <label for="img" class="form-label">Foto</label>
-                                    <input class="form-control" type="file" id="img" name="img" accept="image/*">
+                                    <input class="form-control" type="file" id="img" name="img" accept="image/* image/heic">
                                     {{-- <small class="text-danger">Optional</small> --}}
                                     <p class="text-danger">*<small>Optional</small></p>
                                 </div>

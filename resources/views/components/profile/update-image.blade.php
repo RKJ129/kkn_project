@@ -25,7 +25,7 @@
                             <div class="col-12">
                                 <div class="form-group" id="form-profile-img">
                                     <label for="img">Foto</label>
-                                    <input type="file" name="img" id="img" class="form-control" accept="image/*">
+                                    <input type="file" name="img" id="img" class="form-control" accept="image/* image/heic">
                                 </div>
                             </div>
                         </div>
