@@ -30,7 +30,7 @@ class KostRequest extends FormRequest
             "kontak" => "required|numeric",
             "alamat" => "required|string",
             "description" => "required|string",
-            "img" => "nullable|image|mimes:png,jpg,jpeg|max:2048"
+            "img" => "nullable|image|mimes:png,jpg,jpeg|max:5120"
         ];
     }
 

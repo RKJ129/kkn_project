@@ -29,7 +29,7 @@ class CreateRequest extends FormRequest
             "email" => "required|email|unique:users,email",
             "password" => "required|confirmed",
             "password_confirmation" => "required",
-            "img" => "nullable|image|mimes:png,jpg,jpeg|max:2048",
+            "img" => "nullable|image|mimes:png,jpg,jpeg|max:5120",
         ];
     }
 

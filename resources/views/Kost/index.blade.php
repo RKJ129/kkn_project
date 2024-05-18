@@ -50,7 +50,7 @@
                                     <td class="alamat">{{ $item->alamat }}</td>
                                     <td class="description">{{ $item->description }}</td>
                                     <td class="img">
-                                        <img class="img-fluid" style="width: 50px"
+                                        <img class="img-fluid"
                                             src="{{ $item->img != null ? '/img/kost/' . $item->img : 'img/kost/default.jpeg' }}">
                                     </td>
                                     <td>
