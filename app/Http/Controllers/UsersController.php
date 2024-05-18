@@ -21,6 +21,8 @@ class UsersController extends Controller
 
     public function index() {
         $users = User::where('id', '!=', Auth::user()->id)->get();
+        $loggedInUser = Auth::user();
+        $users->prepend($loggedInUser);
         return view('Users.index', compact('users'));
     }
 

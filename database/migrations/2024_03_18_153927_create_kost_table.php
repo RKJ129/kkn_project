@@ -17,6 +17,7 @@ return new class extends Migration
             $table->bigInteger('harga')->nullable();
             $table->text('alamat')->nullable();
             $table->text('description')->nullable();
+            $table->string('jenis', 100)->nullable();
             $table->string('img', 255)->nullable();
             $table->bigInteger('kontak')->unsigned()->nullable();
             $table->timestamps();

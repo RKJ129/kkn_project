@@ -33,6 +33,7 @@
                                 <th scope="col">Nama</th>
                                 <th scope="col">Harga</th>
                                 <th scope="col">Kontak</th>
+                                <th scope="col">Jenis</th>
                                 <th scope="col">Alamat</th>
                                 <th scope="col">Deskripsi</th>
                                 <th scope="col">Foto</th>
@@ -45,6 +46,7 @@
                                     <td class="name">{{ $item->name }}</td>
                                     <td class="harga">{{ $item->harga }}</td>
                                     <td class="kontak">{{ $item->kontak }}</td>
+                                    <td class="jenis">{{ $item->jenis }}</td>
                                     <td class="alamat">{{ $item->alamat }}</td>
                                     <td class="description">{{ $item->description }}</td>
                                     <td class="img">

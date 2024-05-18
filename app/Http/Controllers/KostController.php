@@ -26,6 +26,7 @@ class KostController extends Controller
             "name" => $request->name,
             "harga" => $harga,
             "kontak" => $kontak,
+            "jenis" => $request->jenis,
             "alamat" => $request->alamat,
             "description" => $request->description,
             "img" => $image
@@ -48,6 +49,7 @@ class KostController extends Controller
             "name" => $request->name,
             "harga" => $harga,
             "kontak" => $kontak,
+            "jenis" => $request->jenis,
             "alamat" => $request->alamat,
             "description" => $request->description,
             "img" => $imgUpdate

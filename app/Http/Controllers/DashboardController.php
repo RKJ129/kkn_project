@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Kost;
 use App\Models\ProfileRT;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
 {
@@ -14,8 +16,9 @@ class DashboardController extends Controller
     public function index()
     {
         $profile = ProfileRT::first();
-        $kost = Kost::all();
-        return view("Dashboard.index", compact('profile', 'kost'));
+        $kost = Kost::take(5)->get();
+        $users = User::take(5)->get();
+        return view("Dashboard.index", compact('profile', 'kost', 'users'));
     }
 
     /**

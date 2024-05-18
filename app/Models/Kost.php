@@ -10,7 +10,7 @@ class Kost extends Model
     use HasFactory;
 
     protected $table = "kost";
-    protected $fillable = ["name", "harga", "alamat", "description", "kontak", "img"];
+    protected $fillable = ["name", "harga", "alamat", "description", "kontak", "img", "jenis"];
 
     public function getHargaAttribute($value) {
         return 'Rp. ' . number_format($value, 0, ',', '.');

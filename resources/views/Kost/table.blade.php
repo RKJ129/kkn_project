@@ -3,6 +3,7 @@
         <td class="name">{{ $item->name }}</td>
         <td class="harga">{{ $item->harga }}</td>
         <td class="kontak">{{ $item->kontak }}</td>
+        <td class="jenis">{{ $item->jenis }}</td>
         <td class="alamat">{{ $item->alamat }}</td>
         <td class="description">{{ $item->description }}</td>
         <td class="img">

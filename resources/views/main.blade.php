@@ -33,13 +33,7 @@
                 </div>
                 <div class="sidebar-menu">
                     <ul class="menu">
-                        <li class='sidebar-title'>Admin</li>
-                        <li class="sidebar-item {{ Request::url() === route('users.index') ? 'active' : '' }} ">
-                            <a href="{{ route('users.index') }}" class='sidebar-link'>
-                                <i data-feather="users" width="20"></i>
-                                <span>Users</span>
-                            </a>
-                        </li>
+                        
 
                         <li class='sidebar-title'>Main Menu</li>
                         <li class="sidebar-item {{ Request::url() === route('dashboard.index') ? 'active' : '' }} ">
@@ -58,8 +52,16 @@
 
                         <li class="sidebar-item {{ Request::url() === route('kost.index') ? 'active' : '' }}">
                             <a href="{{ route('kost.index') }}" class='sidebar-link'>
-                                <i data-feather="layout" width="20"></i>
+                                <i data-feather="hexagon" width="20"></i>
                                 <span>Kost</span>
+                            </a>
+                        </li>
+
+                        <li class='sidebar-title'>Admin</li>
+                        <li class="sidebar-item {{ Request::url() === route('users.index') ? 'active' : '' }} ">
+                            <a href="{{ route('users.index') }}" class='sidebar-link'>
+                                <i data-feather="users" width="20"></i>
+                                <span>Users</span>
                             </a>
                         </li>
 
@@ -91,7 +93,7 @@
                                     <img src="{{ Auth::user()->img != null ? 'img/users/' . Auth::user()->img : 'img/users/user_default.jpeg' }}"
                                         srcset="">
                                 </div>
-                                <div class="d-none d-md-block d-lg-inline-block">Hi, {{ Auth::user()->name }}</div>
+                                <div class="d-none d-md-block d-lg-inline-block text-capitalize">Hi, {{ Auth::user()->name }}</div>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right">
                                 {{-- <a class="dropdown-item" href="#"><i data-feather="settings"></i> Settings</a> --}}
@@ -137,8 +139,6 @@
 
     <script src="{{ asset('admin/vendors/quill/quill.min.js') }}"></script>
     <script src="{{ asset('admin/js/pages/form-editor.js') }}"></script>
-    
-    <script src="{{ asset('admin/js/main.js') }}"></script>
     
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>

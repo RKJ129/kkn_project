@@ -38,6 +38,17 @@
                                 </div>
                             </div>
                             <div class="col-12">
+                                <div class="form-group" id="form-kost-jenis">
+                                    <label for="jenis">Jenis</label>
+                                    <select class="form-select" name="jenis" aria-label="Default select example">
+                                        <option selected>Open this select menu</option>
+                                        <option value="L">Laki-Laki</option>
+                                        <option value="P">Perempuan</option>
+                                        <option value="B">Keduanya</option>
+                                      </select>
+                                </div>
+                            </div>
+                            <div class="col-12">
                                 <div class="form-group" id="form-kost-alamat">
                                     <label for="alamat">Alamat</label>
                                     <textarea name="alamat" id="alamat" class="form-control" cols="30" rows="5"></textarea>

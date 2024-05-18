@@ -29,7 +29,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="card col-6">
+                <div class="card col-12">
                     <div class="card-content">
                         <div class="card-body">
                             <div>
@@ -53,9 +53,7 @@
                                         <th scope="col">Nama</th>
                                         <th scope="col">Harga</th>
                                         <th scope="col">Kontak</th>
-                                        <th scope="col">Alamat</th>
-                                        <th scope="col">Deskripsi</th>
-                                        <th scope="col">Foto</th>
+                                        {{-- <th scope="col">Foto</th> --}}
                                     </tr>
                                 </thead>
                                 <tbody class="table-body-kost">
@@ -64,70 +62,47 @@
                                             <td class="name">{{ $item->name }}</td>
                                             <td class="harga">{{ $item->harga }}</td>
                                             <td class="kontak">{{ $item->kontak }}</td>
-                                            <td class="alamat">{{ $item->alamat }}</td>
-                                            <td class="description">{{ $item->description }}</td>
-                                            <td class="img">
+                                            {{-- <td class="img">
                                                 <img class="img-fluid" style="width: 50px"
                                                     src="{{ $item->img != null ? '/img/kost/' . $item->img : 'img/kost/default.jpeg' }}">
-                                            </td>
+                                            </td> --}}
                                         </tr>
                                     @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="card col-6">
+                    <div class="card-content">
+                        <div class="card-body">
+                            <table class='table table-striped table-kost table1'>
+                                <thead>
+                                    <tr>
+                                        <th>Foto1</th>
+                                        <th>Nama</th>
+                                        <th>Email</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="table-body-users">
+                                    @foreach ($users as $user)
+                                        <tr id="{{ $user->id }}" class="{{ $user->id === Auth::user()->id ? 'bg-info text-white' : ''}}">
+                                            <td class="img">
+                                                <img class="img-fluid" style="width: 50px"
+                                                    src="{{ $user->img != null ? '/img/users/' . $user->img : '/img/users/user_default.jpeg' }}">
+                                            </td>
+                                            <td class="name">{{ $user->name }}</td>
+                                            <td class="email">{{ $user->email }}</td> 
+                                            
+                                        </tr>
+                                    @endforeach
+            
                                 </tbody>
                             </table>
                         </div>
                     </div>
                 </div>
             </div>
-            {{-- <div class="row">
-                <div class="card col-6">
-                    <div class="card-content">
-                        <div class="card-body">
-                            <div>
-                                <h3>Visi</h3>
-                                <p>{{ $profile->visi }}</p>
-                            </div>
-
-                            <div>
-                                <h3>Misi</h3>
-                                <p>{{ $profile->misi }}</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="card col-6">
-                    <div class="card-content">
-                        <div class="card-body">
-                            <table class='table table-striped table-responsive table-kost' id="table1">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">Nama</th>
-                                        <th scope="col">Harga</th>
-                                        <th scope="col">Kontak</th>
-                                        <th scope="col">Alamat</th>
-                                        <th scope="col">Deskripsi</th>
-                                        <th scope="col">Foto</th>
-                                    </tr>
-                                </thead>
-                                <tbody class="table-body-kost">
-                                    @foreach ($kost as $item)
-                                        <tr id="{{ $item->id }}"">
-                                            <td class="name">{{ $item->name }}</td>
-                                            <td class="harga">{{ $item->harga }}</td>
-                                            <td class="kontak">{{ $item->kontak }}</td>
-                                            <td class="alamat">{{ $item->alamat }}</td>
-                                            <td class="description">{{ $item->description }}</td>
-                                            <td class="img">
-                                                <img class="img-fluid" style="width: 50px"
-                                                    src="{{ $item->img != null ? '/img/kost/' . $item->img : 'img/kost/default.jpeg' }}">
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div> --}}
         </div>
     </div>
     </div>
