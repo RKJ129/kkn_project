@@ -40,8 +40,8 @@
                             <div class="col-12">
                                 <div class="form-group" id="form-kost-jenis">
                                     <label for="jenis">Jenis</label>
-                                    <select class="form-select" name="jenis" aria-label="Default select example">
-                                        <option selected>Open this select menu</option>
+                                    <select class="form-select" name="jenis" id="jenis" aria-label="Default select example">
+                                        <option selected value="{{ null }}">Open this select menu</option>
                                         <option value="L">Laki-Laki</option>
                                         <option value="P">Perempuan</option>
                                         <option value="B">Keduanya</option>

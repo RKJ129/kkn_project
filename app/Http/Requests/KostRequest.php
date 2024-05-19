@@ -28,6 +28,7 @@ class KostRequest extends FormRequest
             "name" => "required|string|max:255",
             "harga" => "required|string",
             "kontak" => "required|numeric",
+            "jenis" => "required",
             "alamat" => "required|string",
             "description" => "required|string",
             "img" => "nullable|image|mimes:png,jpg,jpeg|max:5120"

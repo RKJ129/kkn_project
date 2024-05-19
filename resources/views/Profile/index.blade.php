@@ -45,10 +45,9 @@
                                     <button type="button" class="btn icon icon-left btn-sm btn-primary mb-2 mx-1"
                                         data-toggle="modal" data-target="#update-image-profile"><i data-feather="edit"
                                             width="20"></i>Edit</button>
-                                    <a href="{{ route('profile.deleteImage') }}" id="delete-image-profile" class="btn icon icon-left btn-sm btn-danger mb-2 mx-1 {{ $profile->img == null ? 'disabled' : '' }}"><i data-feather="image" width="20"></i>Hapus</a>
-                                    {{-- <button type="button" class="btn icon icon-left btn-sm btn-danger mb-2 mx-1"
-                                        data-toggle="modal" data-target="#update-profile"><i data-feather="image"
-                                            width="20"></i>Hapus</button> --}}
+                                    <a href="{{ route('profile.deleteImage') }}" id="delete-image-profile"
+                                        class="btn icon icon-left btn-sm btn-danger mb-2 mx-1 {{ $profile->img == null ? 'disabled' : '' }}"><i
+                                            data-feather="image" width="20"></i>Hapus</a>
                                 </div>
                                 <x-profile.update-image :profile="$profile" />
                             </div>
@@ -84,6 +83,16 @@
                                 <div class="col-xl-8 col-md-6 col-sm-12 mb-3">
                                     <label for="deskripsi_kost" class="greeting mb-2">Deskripsi Kost</label>
                                     <textarea name="deskripsi_kost" id="deskripsi_kost" class="form-control" cols="30" rows="10">{{ $profile->deskripsi_kost }}</textarea>
+                                </div>
+
+                                <div class="col-xl-8 col-md-6 col-sm-12 mb-3">
+                                    <label for="no_wa" class="greeting mb-2">No. WhatsApp</label>
+                                    <input type="number" name="no_wa" class="form-control" id="no_wa" value="{{ $profile->no_wa }}">
+                                </div>
+
+                                <div class="col-xl-8 col-md-6 col-sm-12 mb-3">
+                                    <label for="instagram" class="greeting mb-2">Instagram</label>
+                                    <input type="text" name="instagram" class="form-control" id="instagram" value="{{ $profile->instagram }}">
                                 </div>
                                 <button type="submit" class="btn btn-primary ml-1">Ganti</button>
                             </form>

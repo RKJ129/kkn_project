@@ -51,6 +51,8 @@ class ProfileController extends Controller
             "sambutan" => "required|string",
             "deskripsi" => "required|string",
             "deskripsi_kost" => "required|string",
+            "no_wa" => "required|numeric",
+            "instagram" => "required|string",
         ]);
 
         if($validator->fails()) {
@@ -58,6 +60,7 @@ class ProfileController extends Controller
         }
 
         $data = ProfileRT::first();
+        $data->no_wa = ltrim($request->no_wa, '0');
         $data->update($request->all());
 
         return response()->json([

@@ -38,7 +38,7 @@
                             <div class="col-12">
                                 <div class="form-group" id="form-kost-jenis">
                                     <label for="jenis">Jenis</label>
-                                    <select class="form-select" name="jenis" aria-label="Default select example">
+                                    <select class="form-select" name="jenis" id="jenis" aria-label="Default select example">
                                         <option selected>Open this select menu</option>
                                         <option value="L" {{ $item->jenis == 'L' ? 'selected' : '' }}>Laki-Laki</option>
                                         <option value="P" {{ $item->jenis == 'P' ? 'selected' : '' }}>Perempuan</option>

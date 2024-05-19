@@ -20,6 +20,8 @@ return new class extends Migration
             $table->text('visi')->nullable();
             $table->text('misi')->nullable();
             $table->integer('jumlah_penduduk')->unsigned()->nullable()->default(0);
+            $table->bigInteger('no_wa')->nullable();
+            $table->text('instagram')->nullable();
             $table->string('img', 255)->nullable();
             $table->timestamps();
         });

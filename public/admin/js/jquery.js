@@ -163,7 +163,6 @@ $(document).ready(function () {
                     showCloseButton: true,
                 });
             }, error : function(err) {
-                console.error(err);
                 const messageValidation = err.responseJSON.errors;
                 validateKost(messageValidation);
             }
@@ -650,6 +649,12 @@ function validateKost(message) {
         showAlert("input#kontak", message.kontak[0]);
     } else {
         removeAlert("input#kontak");
+    }
+
+    if(message.jenis) {
+        showAlert("select#jenis", message.jenis[0]);
+    } else {
+        removeAlert("select#jenis");
     }
 
     if(message.alamat) {
