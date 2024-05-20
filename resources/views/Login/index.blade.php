@@ -39,9 +39,9 @@
                                 <div class="form-group position-relative has-icon-left">
                                     <div class="clearfix">
                                         <label for="password">Password</label>
-                                        <a href="auth-forgot-password.html" class='float-right'>
+                                        {{-- <a href="auth-forgot-password.html" class='float-right'>
                                             <small>Forgot password?</small>
-                                        </a>
+                                        </a> --}}
                                     </div>
                                     <div class="position-relative">
                                         <input type="password" class="form-control" name="password" id="password">
