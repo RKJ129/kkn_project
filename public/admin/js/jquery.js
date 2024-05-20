@@ -59,6 +59,7 @@ $(document).ready(function () {
                 });
 
             }, error : function(err) {
+                console.error(err);
                 const messageValidation = err.responseJSON;
                 validateProfileRT(messageValidation);
             }

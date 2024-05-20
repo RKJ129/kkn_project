@@ -19,17 +19,8 @@
             </div>
         </div>
         @if (!$profile)
-            <button type="button" class="btn icon icon-left btn-secondary" data-toggle="modal"
-                data-target="#create-profile">
-                <i data-feather="plus" width="20"></i>Create
-            </button>
+            <div class="alert alert-warning">Tidak Ada data!</div>
         @else
-            {{-- <button type="button" class="btn icon icon-left btn-sm btn-primary mb-2" data-toggle="modal"
-                data-target="#update-profile"><i data-feather="edit" width="20"></i>Edit</button>
-            <button type="button" class="btn icon icon-left btn-sm btn-warning mb-2" data-toggle="modal"
-                data-target="#update-image-profile"><i data-feather="image" width="20"></i>Image</button> --}}
-
-
             <div class="col-12 h-auto">
                 <div class="card">
                     <div class="card-content">
