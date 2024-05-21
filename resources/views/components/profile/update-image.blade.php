@@ -18,7 +18,7 @@
                             </div>
                             <div class="col-12">
                                 <div class="form-group" id="profile-name">
-                                    <label for="name">Foto</label>
+                                    <label for="name">Nama</label>
                                     <input type="text" name="name" id="name" class="form-control" value="{{ $profile->name }}">
                                 </div>
                             </div>
